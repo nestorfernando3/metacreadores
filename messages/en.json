@@ -1,0 +1,17 @@
+{
+  "auth": {
+    "login": "Sign in",
+    "signup": "Create account",
+    "email": "Email",
+    "password": "Password",
+    "submit": "Continue",
+    "logout": "Sign out",
+    "noAccount": "Don't have an account? Sign up",
+    "hasAccount": "Already have an account? Sign in",
+    "errors": {
+      "invalidEmail": "Invalid email address",
+      "weakPassword": "Password must be at least 6 characters",
+      "generic": "Something went wrong. Please try again."
+    }
+  }
+}

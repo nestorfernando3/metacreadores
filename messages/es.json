@@ -1,0 +1,17 @@
+{
+  "auth": {
+    "login": "Iniciar sesión",
+    "signup": "Crear cuenta",
+    "email": "Correo electrónico",
+    "password": "Contraseña",
+    "submit": "Continuar",
+    "logout": "Cerrar sesión",
+    "noAccount": "¿No tienes cuenta? Regístrate",
+    "hasAccount": "¿Ya tienes cuenta? Inicia sesión",
+    "errors": {
+      "invalidEmail": "Correo electrónico no válido",
+      "weakPassword": "La contraseña debe tener al menos 6 caracteres",
+      "generic": "Ocurrió un error. Intenta de nuevo."
+    }
+  }
+}
