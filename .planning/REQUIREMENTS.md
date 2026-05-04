@@ -95,9 +95,9 @@
 | AUTH-01 | Phase 1 | Pending |
 | AUTH-02 | Phase 1 | Pending |
 | AUTH-03 | Phase 1 | Pending |
-| PROG-01 | Phase 1 | Pending |
-| PROG-02 | Phase 1 | Pending |
-| PROG-03 | Phase 1 | Pending |
+| PROG-01 | Phase 2 | Pending |
+| PROG-02 | Phase 3 | Pending |
+| PROG-03 | Phase 3 | Pending |
 | TEACH-01 | Phase 4 | Pending |
 | TEACH-02 | Phase 4 | Pending |
 
