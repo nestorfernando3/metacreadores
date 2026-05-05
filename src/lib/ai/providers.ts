@@ -28,7 +28,7 @@ export function createGroqModel() {
 // ---------------------------------------------------------------------------
 export function createGoogleModel() {
   requireEnv("GOOGLE_GENERATIVE_AI_API_KEY");
-  return google("gemini-2.0-flash-001");
+  return google("gemini-2.0-flash");
 }
 
 // ---------------------------------------------------------------------------
