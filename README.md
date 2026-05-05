@@ -76,11 +76,13 @@ Copy `.env.example` to `.env.local` and configure:
 
 | Path | Description |
 |------|-------------|
-| `/write` | Editor de escritura con análisis IA |
-| `/exercises` | Ejercicios prácticos de figuras |
-| `/progress` | Dashboard de progreso personal |
-| `/teacher` | Panel del docente |
-| `/login` / `/signup` | Autenticación |
+| `/` → `/es/write` | Home (redirige al editor) |
+| `/es/write` | Editor de escritura con análisis IA |
+| `/es/exercises` | Ejercicios prácticos de figuras |
+| `/es/progress` | Dashboard de progreso personal |
+| `/es/teacher` | Panel del docente |
+| `/es/login` / `/es/signup` | Autenticación |
+| `/en/write` | English: Writing editor |
 
 ## License
 
