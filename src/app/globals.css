@@ -10,3 +10,40 @@ body {
   color: var(--color-foreground);
   background: var(--color-background);
 }
+
+/* ------------------------------------------------------------------ */
+/* TipTap editor styles                                               */
+/* ------------------------------------------------------------------ */
+
+.ProseMirror {
+  min-height: 220px;
+  outline: none;
+}
+
+.ProseMirror p {
+  margin: 0.5em 0;
+}
+
+.ProseMirror p.is-editor-empty:first-child::before {
+  color: #9ca3af;
+  content: attr(data-placeholder);
+  float: left;
+  height: 0;
+  pointer-events: none;
+}
+
+/* ------------------------------------------------------------------ */
+/* Figure highlight decorations                                       */
+/* ------------------------------------------------------------------ */
+
+.highlight-figure {
+  background-color: rgba(251, 191, 36, 0.15);
+  border-bottom: 2px solid rgba(251, 191, 36, 0.5);
+  border-radius: 2px;
+  cursor: default;
+  transition: background-color 0.15s ease;
+}
+
+.highlight-figure:hover {
+  background-color: rgba(251, 191, 36, 0.3);
+}

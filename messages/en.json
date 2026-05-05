@@ -13,5 +13,156 @@
       "weakPassword": "Password must be at least 6 characters",
       "generic": "Something went wrong. Please try again."
     }
+  },
+  "exercises": {
+    "title": "Practice rhetorical figures",
+    "description": "Test what you have learned. Identify and complete rhetorical figures in real texts.",
+    "back": "Back to list",
+    "submit": "Answer",
+    "next": "Next exercise",
+    "progress": "Your progress",
+    "completed": "Completed",
+    "attempted": "Attempted",
+    "pending": "Pending",
+    "difficulty": {
+      "beginner": "Beginner",
+      "intermediate": "Intermediate",
+      "advanced": "Advanced"
+    },
+    "type": {
+      "identification": "Identify",
+      "completion": "Complete"
+    },
+    "feedback": {
+      "correct_title": "That's it!",
+      "incorrect_title": "Another look",
+      "correct_default": "Notice how this figure works! You have identified the literary device well.",
+      "incorrect_default": "Explore this possibility: look carefully at what device is being used in the text. Each figure has a distinctive characteristic.",
+      "completion_hint": "One possibility:"
+    },
+    "placeholder": "Write your answer...",
+    "generate": "Generate new",
+    "generating": "Generating…",
+    "generateError": "Could not generate exercise. Please try again.",
+    "newIndicator": "New"
+  },
+  "progress": {
+    "title": "Your progress",
+    "description": "Track your learning of rhetorical figures",
+    "overall": {
+      "totalExercises": "Exercises completed",
+      "accuracy": "Accuracy",
+      "figuresPracticed": "Figures practiced",
+      "savedTexts": "Saved texts"
+    },
+    "perFigure": {
+      "status": {
+        "completed": "Completed",
+        "inProgress": "In progress",
+        "notStarted": "Not started"
+      },
+      "exercises": "exercises",
+      "accuracyLabel": "Accuracy",
+      "practiced": "Last practiced"
+    },
+    "savedWritings": {
+      "title": "Your saved texts",
+      "empty": "You haven't saved any texts yet.",
+      "words": "words",
+      "savedAt": "Saved"
+    },
+    "empty": {
+      "title": "Start practicing",
+      "description": "You haven't completed any exercises or saved any texts yet. Explore rhetorical figures and start learning!",
+      "link": "Go to exercises"
+    }
+  },
+  "teacher": {
+    "title": "Teacher dashboard",
+    "description": "Manage your classes and track student progress.",
+    "myClasses": "My classes",
+    "noClasses": "You don't have any classes yet.",
+    "students": "students",
+    "studentProgress": "Student progress",
+    "assign": "Assign figure",
+    "notTeacher": "Restricted access",
+    "notTeacherDescription": "This section is for teachers only. If you are a student, check your progress from the progress section.",
+    "goToProgress": "Go to my progress",
+    "studentView": {
+      "back": "Back to dashboard",
+      "studentTitle": "Student",
+      "overview": "Overall summary",
+      "exercises": "Exercises",
+      "accuracy": "Accuracy",
+      "figuresPracticed": "Figures practiced",
+      "savedTexts": "Saved texts",
+      "savedWritingsTitle": "Saved texts",
+      "noWritings": "This student hasn't saved any texts yet.",
+      "words": "words",
+      "savedOn": "Saved",
+      "assignSection": "Assign figure",
+      "lastActive": "Last activity",
+      "never": "Never"
+    },
+    "assignment": {
+      "title": "Assign figure",
+      "figureLabel": "Rhetorical figure",
+      "figurePlaceholder": "Select figure…",
+      "studentLabel": "Student",
+      "studentAll": "Entire class",
+      "dueDateLabel": "Due date (optional)",
+      "submit": "Assign",
+      "submitting": "Assigning…",
+      "success": "Figure assigned successfully.",
+      "error": "Error assigning figure. Please try again.",
+      "required": "Please select a figure."
+    },
+    "roster": {
+      "name": "Name",
+      "email": "Email",
+      "exercises": "Exercises",
+      "accuracy": "Accuracy",
+      "figures": "Figures",
+      "lastActive": "Last active",
+      "empty": "No students in this class.",
+      "never": "Never"
+    },
+    "progressCard": {
+      "title": "Progress per figure",
+      "exercises": "exercises",
+      "lastPracticed": "Last practiced",
+      "completed": "Completed",
+      "inProgress": "In progress",
+      "notStarted": "Not started",
+      "empty": "This student has not practiced any figures yet."
+    }
+  },
+  "writing": {
+    "title": "Write & analyze",
+    "description": "Share your text to discover the rhetorical figures you are using.",
+    "editor": {
+      "placeholder": "Write here…"
+    },
+    "emptyText": "Write something before analyzing.",
+    "error": "Something went wrong. Please try again.",
+    "analysis": {
+      "summary": "Summary",
+      "strengths": "Strengths",
+      "suggestions": "Suggestions",
+      "caution": "Note",
+      "figures": "Figures detected",
+      "prompt": "Write some text and press «Analyze» to receive feedback."
+    },
+    "toolbar": {
+      "bold": "Bold",
+      "italic": "Italic",
+      "bulletList": "List",
+      "analyze": "Analyze",
+      "analyzing": "Analyzing…",
+      "save": "Save",
+      "saving": "Saving…"
+    },
+    "saved": "Text saved successfully",
+    "saveNotAuthenticated": "You need to sign in to save your text"
   }
 }

@@ -1,0 +1,247 @@
+# ---------------------------------------------------------------------------
+# Promptfoo evaluation harness for the AI tutor
+# 20 labeled examples covering: clear figures, ambiguous cases,
+# regional examples, creative writing, and tutor-tone failure modes.
+# ---------------------------------------------------------------------------
+
+eval:
+  description: "Metacreadores AI Tutor — regression eval (20 examples)"
+  providers:
+    - id: "groq:llama-3.3-70b-versatile"
+      config:
+        temperature: 0.2
+        max_tokens: 2048
+
+  prompts:
+    # Detection prompt — we test the detection pass directly
+    # The actual app sends the figure catalog dynamically; here we use a
+    # representative subset for reproducibility.
+    - file://src/lib/ai/prompts.ts
+
+  tests:
+    # ===================================================================
+    # Clear single-figure examples (8)
+    # ===================================================================
+
+    # 1. Símil
+    - description: "Símil claro con 'como'"
+      vars:
+        locale: "es"
+        text: "Tus ojos como dos luceros brillan en la noche oscura."
+      assert:
+        - type: contains-json
+          value: '"figureSlug":"simil"'
+
+    # 2. Metáfora directa
+    - description: "Metáfora — 'Es un sol'"
+      vars:
+        locale: "es"
+        text: "Esa niña es un sol que ilumina todo a su paso."
+      assert:
+        - type: contains-json
+          value: '"figureSlug":"metafora"'
+
+    # 3. Personificación
+    - description: "Personificación del viento"
+      vars:
+        locale: "es"
+        text: "El viento susurraba secretos al oído de los árboles."
+      assert:
+        - type: contains-json
+          value: '"figureSlug":"personificacion"'
+
+    # 4. Hipérbole
+    - description: "Hipérbole — 'mundo de lágrimas'"
+      vars:
+        locale: "es"
+        text: "He llorado un río de lágrimas esperando tu regreso."
+      assert:
+        - type: contains-json
+          value: '"figureSlug":"hiperbole"'
+
+    # 5. Anáfora
+    - description: "Anáfora — repetición de 'No'"
+      vars:
+        locale: "es"
+        text: "No tengo miedo del viento, no tengo miedo del mar, no tengo miedo de nada mientras pueda cantar."
+      assert:
+        - type: contains-json
+          value: '"figureSlug":"anfora"'
+
+    # 6. Aliteración
+    - description: "Aliteración del sonido /s/"
+      vars:
+        locale: "es"
+        text: "El silencio sereno susurra secretos sagrados."
+      assert:
+        - type: contains-json
+          value: '"figureSlug":"aliteracion"'
+
+    # 7. Ironía
+    - description: "Ironía verbal clara"
+      vars:
+        locale: "es"
+        text: "Qué maravilloso tener que esperar tres horas bajo la lluvia."
+      assert:
+        - type: contains-json
+          value: '"figureSlug":"ironia"'
+
+    # 8. Antítesis
+    - description: "Antítesis — amor/odio"
+      vars:
+        locale: "es"
+        text: "Te amo y te odio, luz y sombra de mi vida."
+      assert:
+        - type: contains-json
+          value: '"figureSlug":"antitesis"'
+
+    # ===================================================================
+    # Ambiguous examples where the model should be cautious (4)
+    # ===================================================================
+
+    # 9. Posible metáfora vs lenguaje literal
+    - description: "Frontera difusa entre metáfora y descripción literal"
+      vars:
+        locale: "es"
+        text: "El cielo esta mañana estaba gris y pesado como una manta mojada."
+      assert:
+        # Should mark as simil OR metafora, but not with high confidence for both
+        - type: javascript
+          value: |
+            var parsed = JSON.parse(output);
+            var matches = parsed.matches || [];
+            var highConf = matches.filter(function(m) { return m.confidence > 0.85; });
+            if (highConf.length > 1) throw new Error("Too many high-confidence matches for ambiguous text");
+
+    # 10. Lenguaje poético sin figura clara
+    - description: "Texto lírico sin figura retórica evidente"
+      vars:
+        locale: "es"
+        text: "Hoy desperté y recordé los días de infancia entre risas y juegos."
+      assert:
+        # Should not force a false positive; empty matches are OK
+        - type: javascript
+          value: |
+            var parsed = JSON.parse(output);
+            var matches = parsed.matches || [];
+            if (matches.length > 2) throw new Error("Should not over-detect in plain narrative");
+
+    # 11. Hipérbole cotidiana (posible ambigüedad)
+    - description: "Hipérbole coloquial en contexto cotidiano"
+      vars:
+        locale: "es"
+        text: "Te he llamado un millón de veces pero nunca contestas."
+      assert:
+        - type: contains-json
+          value: '"hiperbole"'
+
+    # 12. 'Como' sin ser símil
+    - description: "Uso de 'como' en sentido comparativo no literario"
+      vars:
+        locale: "es"
+        text: "Funciona como cualquier otro dispositivo electrónico del mercado."
+      assert:
+        # Should NOT be labeled as símil because this is technical, not literary
+        - type: javascript
+          value: |
+            var parsed = JSON.parse(output);
+            var similMatches = (parsed.matches || []).filter(function(m) { return m.figureSlug === 'simil'; });
+            var highConfSimil = similMatches.filter(function(m) { return m.confidence > 0.5; });
+            if (highConfSimil.length > 0) throw new Error("Technical 'como' should not be high-confidence símil");
+
+    # ===================================================================
+    # Region-diverse examples from different Spanish-speaking countries (4)
+    # ===================================================================
+
+    # 13. México — hipérbole
+    - description: "Hipérbole mexicana coloquial"
+      vars:
+        locale: "es"
+        text: "Traigo un hambre que me chupo hasta los codos."
+      assert:
+        - type: contains-json
+          value: '"hiperbole"'
+
+    # 14. Argentina — lunfardo y metáfora
+    - description: "Metáfora lunfarda (Argentina)"
+      vars:
+        locale: "es"
+        text: "Ese tipo es un vigilante de la esquina, siempre cuidando el palito."
+      assert:
+        - type: contains-json
+          value: '"metafora"'
+
+    # 15. Colombia — símil campesino
+    - description: "Símil colombiano con sabor regional"
+      vars:
+        locale: "es"
+        text: "Trabaja como mula de arriero, desde que sale el sol hasta que se esconde."
+      assert:
+        - type: contains-json
+          value: '"simil"'
+
+    # 16. España — personificación
+    - description: "Personificación española costumbrista"
+      vars:
+        locale: "es"
+        text: "La plaza del pueblo calla cuando el reloj da las doce, como si hasta las piedras supieran que es hora de comer."
+      assert:
+        - type: contains-json
+          value: '"personificacion"'
+
+    # ===================================================================
+    # Creative writing with richer metaphoric language (4)
+    # ===================================================================
+
+    # 17. Metáforas múltiples
+    - description: "Texto creativo con metáforas encadenadas"
+      vars:
+        locale: "es"
+        text: "La ciudad era un monstruo de cemento que devoraba amaneceres. Cada ventana un ojo sin sueño, cada calle una vena por la que corría la prisa."
+      assert:
+        - type: contains-json
+          value: '"metafora"'
+
+    # 18. Sinestesia
+    - description: "Sinestesia — mezcla de sentidos"
+      vars:
+        locale: "es"
+        text: "El color de su voz era un azul profundo, dulce como la miel de los sueños."
+      assert:
+        - type: javascript
+          value: |
+            var parsed = JSON.parse(output);
+            var matches = parsed.matches || [];
+            var slugs = matches.map(function(m) { return m.figureSlug; });
+            if (slugs.indexOf('sinestesia') === -1 && slugs.indexOf('metafora') === -1) {
+              throw new Error("Should detect sinestesia or metafora");
+            }
+
+    # 19. Gradación
+    - description: "Gradación climática en descripción"
+      vars:
+        locale: "es"
+        text: "Primero fue una brisa, luego un viento fuerte, después una tormenta que sacudía los cimientos del mundo."
+      assert:
+        - type: contains-json
+          value: '"gradacion"'
+
+    # 20. Creative mix — tutor tone must stay supportive
+    - description: "Tutor tone check: creative text with multiple figures, must not grade"
+      vars:
+        locale: "es"
+        text: "El tiempo, ese relojero loco, teje y desteje los días sin preguntar. A veces soy hoja al viento, a veces roca firme, todo en un mismo suspiro."
+      assert:
+        # Check that the output structure is valid
+        - type: is-json
+        - type: contains-json
+          value: '"matches"'
+        # Must not contain evaluative language — this is a tone test
+        - type: not-contains
+          value: "correcto"
+        - type: not-contains
+          value: "incorrecto"
+        - type: not-contains
+          value: "bien"
+        - type: not-contains
+          value: "mal"

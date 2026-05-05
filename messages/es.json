@@ -13,5 +13,156 @@
       "weakPassword": "La contraseña debe tener al menos 6 caracteres",
       "generic": "Ocurrió un error. Intenta de nuevo."
     }
+  },
+  "exercises": {
+    "title": "Practica figuras retóricas",
+    "description": "Pon a prueba lo que has aprendido. Identifica y completa figuras retóricas en textos reales.",
+    "back": "Volver a la lista",
+    "submit": "Responder",
+    "next": "Siguiente ejercicio",
+    "progress": "Tu progreso",
+    "completed": "Completado",
+    "attempted": "Intentado",
+    "pending": "Pendiente",
+    "difficulty": {
+      "beginner": "Principiante",
+      "intermediate": "Intermedio",
+      "advanced": "Avanzado"
+    },
+    "type": {
+      "identification": "Identificar",
+      "completion": "Completar"
+    },
+    "feedback": {
+      "correct_title": "¡Así es!",
+      "incorrect_title": "Otra mirada",
+      "correct_default": "¡Observa cómo funciona esta figura! Has identificado bien el recurso literario.",
+      "incorrect_default": "Explora esta posibilidad: observa con atención qué recurso se está usando en el texto. Cada figura tiene una característica distintiva.",
+      "completion_hint": "Una posibilidad:"
+    },
+    "placeholder": "Escribe tu respuesta...",
+    "generate": "Generar nuevo",
+    "generating": "Generando…",
+    "generateError": "No se pudo generar el ejercicio. Intenta de nuevo.",
+    "newIndicator": "Nuevo"
+  },
+  "progress": {
+    "title": "Tu progreso",
+    "description": "Sigue tu aprendizaje de figuras retóricas",
+    "overall": {
+      "totalExercises": "Ejercicios completados",
+      "accuracy": "Precisión",
+      "figuresPracticed": "Figuras practicadas",
+      "savedTexts": "Textos guardados"
+    },
+    "perFigure": {
+      "status": {
+        "completed": "Completado",
+        "inProgress": "En progreso",
+        "notStarted": "Sin empezar"
+      },
+      "exercises": "ejercicios",
+      "accuracyLabel": "Precisión",
+      "practiced": "Practicaste por última vez"
+    },
+    "savedWritings": {
+      "title": "Tus textos guardados",
+      "empty": "Aún no has guardado ningún texto.",
+      "words": "palabras",
+      "savedAt": "Guardado"
+    },
+    "empty": {
+      "title": "Comienza a practicar",
+      "description": "Aún no has completado ejercicios ni guardado textos. ¡Explora las figuras retóricas y empieza tu aprendizaje!",
+      "link": "Ir a ejercicios"
+    }
+  },
+  "teacher": {
+    "title": "Panel docente",
+    "description": "Gestiona tus clases y sigue el progreso de tus estudiantes.",
+    "myClasses": "Mis clases",
+    "noClasses": "Aún no tienes clases creadas.",
+    "students": "estudiantes",
+    "studentProgress": "Progreso de estudiantes",
+    "assign": "Asignar figura",
+    "notTeacher": "Acceso restringido",
+    "notTeacherDescription": "Esta sección es solo para docentes. Si eres estudiante, revisa tu progreso desde la sección de progreso.",
+    "goToProgress": "Ir a mi progreso",
+    "studentView": {
+      "back": "Volver al panel",
+      "studentTitle": "Estudiante",
+      "overview": "Resumen general",
+      "exercises": "Ejercicios",
+      "accuracy": "Precisión",
+      "figuresPracticed": "Figuras practicadas",
+      "savedTexts": "Textos guardados",
+      "savedWritingsTitle": "Textos guardados",
+      "noWritings": "Este estudiante aún no ha guardado ningún texto.",
+      "words": "palabras",
+      "savedOn": "Guardado",
+      "assignSection": "Asignar figura",
+      "lastActive": "Última actividad",
+      "never": "Nunca"
+    },
+    "assignment": {
+      "title": "Asignar figura",
+      "figureLabel": "Figura retórica",
+      "figurePlaceholder": "Seleccionar figura…",
+      "studentLabel": "Estudiante",
+      "studentAll": "Toda la clase",
+      "dueDateLabel": "Fecha de entrega (opcional)",
+      "submit": "Asignar",
+      "submitting": "Asignando…",
+      "success": "Figura asignada correctamente.",
+      "error": "Error al asignar. Intenta de nuevo.",
+      "required": "Selecciona una figura."
+    },
+    "roster": {
+      "name": "Nombre",
+      "email": "Correo",
+      "exercises": "Ejercicios",
+      "accuracy": "Precisión",
+      "figures": "Figuras",
+      "lastActive": "Última actividad",
+      "empty": "No hay estudiantes en esta clase.",
+      "never": "Nunca"
+    },
+    "progressCard": {
+      "title": "Progreso por figura",
+      "exercises": "ejercicios",
+      "lastPracticed": "Última práctica",
+      "completed": "Completado",
+      "inProgress": "En progreso",
+      "notStarted": "Sin empezar",
+      "empty": "Este estudiante aún no ha practicado ninguna figura."
+    }
+  },
+  "writing": {
+    "title": "Escribe y analiza",
+    "description": "Comparte tu texto para descubrir las figuras retóricas que usas.",
+    "editor": {
+      "placeholder": "Escribe aquí..."
+    },
+    "emptyText": "Escribe algo antes de analizar.",
+    "error": "Ocurrió un error. Intenta de nuevo.",
+    "analysis": {
+      "summary": "Resumen",
+      "strengths": "Fortalezas",
+      "suggestions": "Sugerencias",
+      "caution": "A tener en cuenta",
+      "figures": "Figuras detectadas",
+      "prompt": "Escribe un texto y presiona «Analizar» para recibir retroalimentación."
+    },
+    "toolbar": {
+      "bold": "Negrita",
+      "italic": "Cursiva",
+      "bulletList": "Lista",
+      "analyze": "Analizar",
+      "analyzing": "Analizando…",
+      "save": "Guardar",
+      "saving": "Guardando…"
+    },
+    "saved": "Texto guardado correctamente",
+    "saveNotAuthenticated": "Debes iniciar sesión para guardar tu texto"
   }
 }
