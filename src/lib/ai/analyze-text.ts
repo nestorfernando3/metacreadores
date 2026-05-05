@@ -14,10 +14,23 @@ import {
   getDetectionConfig,
   getFeedbackConfig,
 } from "@/lib/ai/providers";
-import { getFigureContext } from "@/lib/content/figure-context";
-import type { FigureCandidate } from "@/lib/content/figure-context";
+import { getFigureContext, type FigureCandidate } from "@/lib/content/figure-context";
 import { lookupCachedAnalysis } from "@/lib/ai/cache";
 import { trace } from "@/lib/ai/trace";
+
+// ---------------------------------------------------------------------------
+// Fallback figure list when database is unavailable
+// ---------------------------------------------------------------------------
+const FALLBACK_FIGURES: FigureCandidate[] = [
+  { slug: "metafora", name: "Metáfora", definition: "Identificación de un término real con otro imaginario", category: "figuras_de_pensamiento", difficultyLevel: 1 },
+  { slug: "simil", name: "Símil", definition: "Comparación explícita entre dos términos usando 'como'", category: "figuras_de_pensamiento", difficultyLevel: 1 },
+  { slug: "personificacion", name: "Personificación", definition: "Atribuir cualidades humanas a objetos inanimados", category: "figuras_de_pensamiento", difficultyLevel: 1 },
+  { slug: "hiperbole", name: "Hipérbole", definition: "Exageración con fines expresivos", category: "figuras_de_pensamiento", difficultyLevel: 1 },
+  { slug: "anfora", name: "Anáfora", definition: "Repetición de palabras al inicio de versos o frases", category: "figuras_de_diccion", difficultyLevel: 1 },
+  { slug: "aliteracion", name: "Aliteración", definition: "Repetición de sonidos para crear un efecto", category: "figuras_de_diccion", difficultyLevel: 2 },
+  { slug: "antitesis", name: "Antítesis", definition: "Contraposición de dos ideas opuestas", category: "figuras_de_pensamiento", difficultyLevel: 2 },
+  { slug: "ironia", name: "Ironía", definition: "Decir lo contrario de lo que se piensa", category: "figuras_de_pensamiento", difficultyLevel: 2 },
+];
 
 // ---------------------------------------------------------------------------
 // Internal helpers
@@ -239,10 +252,19 @@ export async function analyzeText(
     });
   }
 
-  // Get candidate figures from the catalog (or use explicit ones)
-  const candidates =
-    explicitCandidates ??
-    (await getFigureContext(text, locale, 5));
+  // Get candidate figures from the catalog (or use explicit ones).
+  // Falls back to a minimal hardcoded set when the database is unavailable.
+  let candidates: FigureCandidate[];
+  if (explicitCandidates) {
+    candidates = explicitCandidates;
+  } else {
+    try {
+      candidates = await getFigureContext(text, locale, 5);
+    } catch {
+      console.warn("[analyze-text] DB unavailable, using fallback figure list");
+      candidates = FALLBACK_FIGURES;
+    }
+  }
 
   // --- Pass 1: Detection ---
   const analysis = await detectFigures(text, locale, candidates);
