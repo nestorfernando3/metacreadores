@@ -2,8 +2,6 @@ import { generateText, Output } from "ai";
 import { z } from "zod";
 import {
   getDetectionConfig,
-  getFallbackConfig,
-  isGeminiAvailable,
 } from "@/lib/ai/providers";
 
 // ---------------------------------------------------------------------------
@@ -178,7 +176,6 @@ export async function generateExercise(
     locale,
   );
 
-  // --- Attempt primary model (Groq) ---
   try {
     const config = getDetectionConfig();
 
@@ -195,37 +192,11 @@ export async function generateExercise(
     if (parsed.success) return parsed.data;
 
     console.warn(
-      "[generate-exercise] Primary model returned invalid shape:",
+      "[generate-exercise] Model returned invalid shape:",
       result.output,
     );
   } catch (error) {
-    console.warn("[generate-exercise] Primary model failed:", error);
-  }
-
-  // --- Attempt fallback model (Gemini) ---
-  if (isGeminiAvailable()) {
-    try {
-      const fallbackConfig = getFallbackConfig();
-
-      const result = await generateText({
-        model: fallbackConfig.model,
-        system,
-        prompt: user,
-        temperature: 0.3,
-        maxOutputTokens: 1024,
-        output: Output.object({ schema: GeneratedExerciseSchema }),
-      });
-
-      const parsed = GeneratedExerciseSchema.safeParse(result.output);
-      if (parsed.success) return parsed.data;
-
-      console.warn(
-        "[generate-exercise] Fallback model returned invalid shape:",
-        result.output,
-      );
-    } catch (error) {
-      console.warn("[generate-exercise] Fallback model also failed:", error);
-    }
+    console.warn("[generate-exercise] AI call failed:", error);
   }
 
   return null;

@@ -273,7 +273,7 @@ describe("analyzeText", () => {
     expect(result.feedback.strengths).toHaveLength(1);
     expect(result.confidence).toBeGreaterThan(0);
     expect(result.locale).toBe("es");
-    expect(result.model).toBe("groq-llama-3.3-70b");
+    expect(result.model).toBe("gemini-2.0-flash");
   });
 
   it("returns empty matches when no figures detected", async () => {

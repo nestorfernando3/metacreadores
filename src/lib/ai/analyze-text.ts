@@ -13,9 +13,6 @@ import {
 import {
   getDetectionConfig,
   getFeedbackConfig,
-  getFallbackConfig,
-  isGroqAvailable,
-  isGeminiAvailable,
 } from "@/lib/ai/providers";
 import { getFigureContext } from "@/lib/content/figure-context";
 import type { FigureCandidate } from "@/lib/content/figure-context";
@@ -109,34 +106,7 @@ async function detectFigures(
     const validated = validateOffsets(text, analysis);
     return validated;
   } catch (error) {
-    // Log and try fallback if available
-    console.warn("[analyze-text] Primary model failed:", error);
-
-    // If fallback is available, try it once
-    if (isGeminiAvailable()) {
-      try {
-        const fallbackConfig = getFallbackConfig();
-        const result = await generateText({
-          model: fallbackConfig.model,
-          system,
-          prompt: userPrompt,
-          temperature: fallbackConfig.temperature,
-          maxOutputTokens: fallbackConfig.maxOutputTokens,
-          output: Output.object({ schema: AnalysisSchema }),
-        });
-
-        const analysis = result.output as Analysis;
-        const validated = validateOffsets(text, analysis);
-        return validated;
-      } catch (fallbackError) {
-        console.warn(
-          "[analyze-text] Fallback model also failed:",
-          fallbackError,
-        );
-      }
-    }
-
-    // If both fail, return safe empty result
+    console.warn("[analyze-text] AI detection failed:", error);
     return { matches: [], uncertainSegments: [] };
   }
 }
@@ -245,7 +215,7 @@ export async function analyzeText(
   const { text, locale = "es", figureCandidates: explicitCandidates, userId } = options;
 
   // Determine which model was used
-  const model = isGroqAvailable() ? "groq-llama-3.3-70b" : "gemini-2.0-flash";
+  const model = "gemini-2.0-flash";
 
   // --- Cache lookup (user-scoped) ---
   if (userId) {

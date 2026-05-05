@@ -243,19 +243,10 @@ describe("generateExercise", () => {
     expect(result!.answer).toBe("oro");
   });
 
-  it("falls back to Gemini when primary model fails", async () => {
-    // Primary fails
+  it("returns null when AI call fails", async () => {
     vi.mocked(generateText).mockRejectedValueOnce(
-      new Error("Primary unavailable"),
+      new Error("AI unavailable"),
     );
-
-    // Fallback succeeds
-    vi.mocked(generateText).mockResolvedValueOnce({
-      output: {
-        text: "El viento gemía en la noche oscura y las nubes lloraban su tristeza.",
-        answer: "personificacion",
-      },
-    } as any);
 
     const result = await generateExercise({
       figure: {
@@ -268,40 +259,13 @@ describe("generateExercise", () => {
       locale: "es",
     });
 
-    expect(result).not.toBeNull();
-    expect(result!.text).toContain("gemía");
-    expect(result!.answer).toBe("personificacion");
-  });
-
-  it("returns null when both models fail", async () => {
-    vi.mocked(generateText).mockRejectedValueOnce(
-      new Error("Primary timeout"),
-    );
-    vi.mocked(generateText).mockRejectedValueOnce(
-      new Error("Fallback timeout"),
-    );
-
-    const result = await generateExercise({
-      figure: MOCK_FIGURE,
-      type: "identification",
-      difficulty: 1,
-      locale: "es",
-    });
-
     expect(result).toBeNull();
   });
 
   it("returns null when AI returns invalid shape", async () => {
     vi.mocked(generateText).mockResolvedValueOnce({
       output: {
-        // Missing 'answer'
         text: "Some text",
-      },
-    } as any);
-    // Fallback also returns invalid shape
-    vi.mocked(generateText).mockResolvedValueOnce({
-      output: {
-        text: "More text",
       },
     } as any);
 
@@ -314,4 +278,5 @@ describe("generateExercise", () => {
 
     expect(result).toBeNull();
   });
+
 });

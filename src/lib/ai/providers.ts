@@ -40,9 +40,18 @@ export interface ModelConfig {
   maxOutputTokens: number;
 }
 
+// ---------------------------------------------------------------------------
+// Auto-select available provider (Gemini preferred since free)
+// ---------------------------------------------------------------------------
+function getBestModel(): ReturnType<typeof createGoogleModel> {
+  return isGeminiAvailable()
+    ? createGoogleModel()
+    : createGroqModel();
+}
+
 export function getDetectionConfig(): ModelConfig {
   return {
-    model: createGroqModel(),
+    model: getBestModel(),
     temperature: 0.2,
     maxOutputTokens: 2048,
   };
@@ -53,20 +62,9 @@ export function getDetectionConfig(): ModelConfig {
 // ---------------------------------------------------------------------------
 export function getFeedbackConfig(): ModelConfig {
   return {
-    model: createGroqModel(),
+    model: getBestModel(),
     temperature: 0.35,
     maxOutputTokens: 1024,
-  };
-}
-
-// ---------------------------------------------------------------------------
-// Fallback: get Gemini model config for when Groq is unavailable
-// ---------------------------------------------------------------------------
-export function getFallbackConfig(): ModelConfig {
-  return {
-    model: createGoogleModel(),
-    temperature: 0.3,
-    maxOutputTokens: 2048,
   };
 }
 
